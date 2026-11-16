@@ -57,11 +57,6 @@ class Amenity(models.Model):
     def __str__(self):
         return self.name
 
-amenities = models.ManyToManyField(
-    'Amenity',
-    blank=True,
-    related_name='properties'
-)
 
 class PropertyImage(models.Model):
     property = models.ForeignKey(

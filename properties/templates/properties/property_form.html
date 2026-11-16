@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if form.instance.pk %}ویرایش ملک{% else %}ثبت ملک جدید{% endif %}
+    </title>
+</head>
+<body>
+
+    <h1>
+        {% if form.instance.pk %}
+            ویرایش ملک
+        {% else %}
+            ثبت ملک جدید
+        {% endif %}
+    </h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">
+            {% if form.instance.pk %}
+                ذخیره تغییرات
+            {% else %}
+                ثبت ملک
+            {% endif %}
+        </button>
+    </form>
+
+    <a href="{% url 'property_list' %}">بازگشت به فهرست املاک</a>
+
+</body>
+</html>

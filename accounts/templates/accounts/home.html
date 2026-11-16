@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>صفحه اصلی</title>
+</head>
+<body>
+
+    <h1>به سامانه مدیریت املاک خوش آمدید</h1>
+
+    <h3>سلام {{ user.first_name|default:user.username }} عزیز!</h3>
+
+    <p>
+        نوع حساب کاربری:
+        {{ user.get_role_display }}
+    </p>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">خروج از حساب</button>
+    </form>
+
+</body>
+</html>

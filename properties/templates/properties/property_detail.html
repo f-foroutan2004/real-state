@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>جزئیات ملک</title>
+</head>
+<body>
+
+    <h1>جزئیات ملک</h1>
+
+    <hr>
+
+    <h2>{{ property.title }}</h2>
+
+    <h3>مشخصات ملک</h3>
+
+    <p>توضیحات: {{ property.description }}</p>
+    <p>نوع ملک: {{ property.get_property_type_display }}</p>
+    <p>نوع معامله: {{ property.get_status_display }}</p>
+    <p>قیمت: {{ property.price }} تومان</p>
+    <p>متراژ: {{ property.area }} متر مربع</p>
+    <p>تعداد اتاق: {{ property.rooms }}</p>
+    <p>شهر: {{ property.city }}</p>
+    <p>آدرس: {{ property.address }}</p>
+
+    <hr>
+
+    <h3>امکانات ملک</h3>
+
+    {% for amenity in property.amenities.all %}
+        <p>{{ amenity.name }}</p>
+    {% empty %}
+        <p>امکاناتی برای این ملک ثبت نشده است.</p>
+    {% endfor %}
+
+    <hr>
+
+    <a href="{% url 'property_list' %}">
+        بازگشت به فهرست املاک
+    </a>
+
+    <br><br>
+
+    <a href="{% url 'home' %}">
+        بازگشت به صفحه اصلی
+    </a>
+
+    {% if user.is_authenticated and user == property.owner and user.role == 'agent' %}
+
+    <a href="{% url 'property_edit' property.pk %}">
+        ویرایش ملک
+    </a>
+
+    <br><br>
+
+    <a href="{% url 'property_delete' property.pk %}">
+        حذف ملک
+    </a>
+
+{% endif %}
+
+</body>
+</html>

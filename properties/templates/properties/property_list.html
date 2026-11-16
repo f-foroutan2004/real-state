@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>فهرست املاک</title>
+</head>
+<body>
+
+    <h1>فهرست املاک</h1>
+
+    <h2>جست‌وجو و فیلتر</h2>
+
+    <form method="GET">
+
+        <label>شهر:</label>
+        <input type="text" name="city">
+
+        <br><br>
+
+        <label>نوع معامله:</label>
+        <select name="status">
+            <option value="">همه</option>
+            <option value="sale">فروش</option>
+            <option value="rent">اجاره</option>
+        </select>
+
+        <br><br>
+
+        <label>حداقل قیمت:</label>
+        <input type="number" name="min_price">
+
+        <label>حداکثر قیمت:</label>
+        <input type="number" name="max_price">
+
+        <br><br>
+
+        <label>حداقل متراژ:</label>
+        <input type="number" name="min_area">
+
+        <label>حداکثر متراژ:</label>
+        <input type="number" name="max_area">
+
+        <br><br>
+
+        <label>تعداد اتاق:</label>
+        <input type="number" name="rooms">
+
+        <br><br>
+
+        <button type="submit">جست‌وجو</button>
+
+        <a href="{% url 'property_list' %}">پاک کردن فیلترها</a>
+
+    </form>
+
+    <hr>
+
+    <h2>نتایج جست‌وجو</h2>
+
+    {% for property in properties %}
+
+        <div>
+            <h3>{{ property.title }}</h3>
+
+            <p>شهر: {{ property.city }}</p>
+            <p>نوع ملک: {{ property.get_property_type_display }}</p>
+            <p>نوع معامله: {{ property.get_status_display }}</p>
+            <p>متراژ: {{ property.area }} متر</p>
+            <p>تعداد اتاق: {{ property.rooms }}</p>
+            <p>قیمت: {{ property.price }} تومان</p>
+
+            <a href="{% url 'property_detail' property.pk %}">
+                مشاهده جزئیات ملک
+            </a>
+
+            <hr>
+        </div>
+
+    {% empty %}
+
+        <p>ملکی با مشخصات موردنظر پیدا نشد.</p>
+
+    {% endfor %}
+
+    <a href="{% url 'home' %}">بازگشت به صفحه اصلی</a>
+
+</body>
+</html>
